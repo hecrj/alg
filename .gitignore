@@ -1,4 +1,5 @@
 nbproject/private/
-*.out
+*test.out
+a.out
 *.o
 *.d
