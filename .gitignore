@@ -3,3 +3,8 @@ nbproject/private/
 a.out
 *.o
 *.d
+**/samples_big/
+*.mk
+*.bash
+*.xml
+nil.*

@@ -1,6 +1,6 @@
 # Max number that rand can generate
-MAX = 200
-SAMPLES = 5
+MAX = 10**6
+SAMPLES = 50
 
 # Number of elements to add to next vector
 SIZE_JUMP = (10**6) / SAMPLES

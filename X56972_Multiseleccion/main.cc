@@ -4,56 +4,66 @@
 using namespace std;
 
 // Constant cost: O(1)
-template<class T> inline void myswap(T &a, T &b)
+template<class T> inline T selectPivot(vector<T> &elements, int start, int end)
 {
-    T aux = a;
-    a = b;
-    b = aux;
+    int center = (start + end) / 2;
+    
+    if(elements[end] < elements[center])
+        swap(elements[center], elements[start]);
+    
+    if(elements[start] < elements[center])
+        swap(elements[center], elements[start]);
+    
+    if(elements[start] < elements[end])
+        swap(elements[start], elements[end]);
+    
+    return elements[end];
 }
 
-// Lineal cost: O(n)
+
+// Lineal cost: O(end - start)
 template<class T> int partition(vector<T> &elements, int start, int end)
 {
-    int i = start+1;
+    T p = selectPivot(elements, start, end);
+    int i = start;
     int j = end;
-    T p = elements[start];
-    
-    while(i <= j)
+
+    while(i < j)
     {
-        while(i <= j and elements[i] <= p)
+        while(i < j and elements[i] <= p)
             i++;
         
-        while(i <= j and elements[j] >= p)
+        while(i < j and elements[j] >= p)
             j--;
         
-        if(i <= j)
-            myswap<T>(elements[i], elements[j]);
+        if(i < j)
+            swap(elements[i], elements[j]);
     }
     
-    myswap<T>(elements[start], elements[j]);
+    swap(elements[end], elements[j]);
     
     return j;
 }
 
-// Cost: n log s
-template<class T> T quick_select(vector<T> &elements, int k, int start, int end)
+// Average cost: O(n)
+template<class T> int quickselect(vector<T> &elements, int k, int start, int end)
 {
     if(start == end)
-        return elements[end];
+        return end;
 
     int j = partition(elements, start, end);
 
     if(k == j)
-        return elements[j];
+        return j;
     
     if(k < j)
-        return quick_select(elements, k, start, j-1);
+        return quickselect(elements, k, start, j-1);
 
-    return quick_select(elements, k, j+1, end);
+    return quickselect(elements, k, j+1, end);
 }
 
-// Cost: n log p
-template<class T> void mselect(vector<T> &elements, const vector<int> &ranges,
+// Cost: elements.size() * log(ranges.size())
+template<class T> void multiselect(vector<T> &elements, const vector<int> &ranges,
         int elementStart, int elementEnd, int rangeStart, int rangeEnd)
 {
     int rangesSize = rangeEnd - rangeStart + 1;
@@ -62,21 +72,28 @@ template<class T> void mselect(vector<T> &elements, const vector<int> &ranges,
         return;
     
     if(rangesSize == 1)
-    {
-        cout << rangeStart << endl;
-        quick_select<T>(elements, ranges[rangeStart] + 1 - elementStart, elementStart, elementEnd);
-    }
+        quickselect(elements, ranges[rangeStart] - 1, elementStart, elementEnd);
+    
     else
     {
-        int middle = rangeStart + rangesSize / 2;
-        cout << middle << endl;
-        int pivot = ranges[middle];
+        int center = rangeStart + rangesSize / 2;
+        int pivot = ranges[center];
         
-        quick_select<T>(elements, pivot + 1 - elementStart, elementStart, elementEnd);
+        int j = quickselect<T>(elements, pivot - 1, elementStart, elementEnd);
         
-        mselect<T>(elements, ranges, elementStart, middle-1, rangeStart, middle-1);
-        mselect<T>(elements, ranges, middle+1, elementEnd, middle+1, rangeEnd);
+        multiselect(elements, ranges, elementStart, j-1, rangeStart, center-1);
+        multiselect(elements, ranges, j+1, elementEnd, center+1, rangeEnd);
     }
+}
+
+/**
+ * Simple shortcut for immersion.
+ * @param elements
+ * @param ranges
+ */
+template<class T> void multiselect(vector<T> &elements, const vector<int> &ranges)
+{
+    multiselect(elements, ranges, 0, elements.size() - 1, 0, ranges.size() - 1);
 }
 
 int main()
@@ -94,7 +111,7 @@ int main()
     for(int i = 0; i < n; ++i)
         cin >> elements[i];
     
-    mselect<int>(elements, ranges, 0, elements.size() - 1, 0, ranges.size() - 1);
+    multiselect(elements, ranges);
     
     for(int i = 0; i < p; ++i)
     {
