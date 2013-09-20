@@ -44,4 +44,10 @@ SAMPLES.times do |t|
     # in the created file 
     f.write("#{elements} #{p.size} #{p.join(" ")} #{v.join(" ")}")
 	end
+
+  v.sort!
+
+  File.open("samples_big/sample_#{format('%02d', t+1)}.out", "w") do |f|
+    f.write("#{p.map { |i| v[i-1] }.join(" ")}\n")
+  end
 end
