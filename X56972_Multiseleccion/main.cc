@@ -73,18 +73,18 @@ template<class T> void multiselect(vector<T> &elements, const vector<int> &range
     int rangesSize = rangeEnd - rangeStart + 1;
     // We suppose that n = rangeSize
     
-    // If the range size is less than 1, we don't need to do anything
+    // If n is less than 1, we don't need to do anything
     if(rangesSize < 1)
         return;
     
-    // Base case occurs when range size is equal to 1
+    // Base case occurs when n is equal to 1
     // All we need to do is quick select the range
     if(rangesSize == 1)
         quickselect(elements, ranges[rangeStart], elementStart, elementEnd);
     
     else
     {
-        // If range size is greater than 1, we select the center of the ranges as the pivot
+        // If n is greater than 1, we select the center of the ranges as the pivot
         int center = rangeStart + rangesSize / 2;
         int pivot = ranges[center];
         
@@ -105,8 +105,8 @@ template<class T> void multiselect(vector<T> &elements, const vector<int> &range
         multiselect(elements, ranges, elementStart, j-1, rangeStart, center-1);
         multiselect(elements, ranges, j+1, elementEnd, center+1, rangeEnd);
         
-        // We know that the rangesSize of every call is going to be rangesSize - 1, because we extract the center.
-        // Therefore (rangesSize - 1) < n and the induction hypothesis guarantees that these recursive calls work
+        // We know that the rangesSize of every call is going to be n - 1, because we extract the center.
+        // Therefore (n - 1) < n and the induction hypothesis guarantees that these recursive calls will work
         // correctly.
     }
 }
