@@ -6,7 +6,7 @@ MAX = 10**6
 SAMPLES = 50
 
 # Number of elements to add to next vector
-SIZE_JUMP = (10**6) / SAMPLES
+SIZE_JUMP = MAX / SAMPLES
 
 # Generates a random array of size elements
 def rand_array(size, max = MAX)
@@ -63,30 +63,28 @@ class Test
     end_time = Time.now
 
     unless execution
-      print "Failed".orange
-      return
+      puts "Failed".red
+      exit(1)
     end
 
     if FileUtils.cmp("test_#{@size}.out", "test_#{@size}_exec.out")
       print "Passed".green
       print " "
-      print "#{(end_time - beginning_time)*1000} ms".blue
+      puts "#{(end_time - beginning_time)*1000} ms".blue
     else
-      print "Wrong".red
-      return
+      puts "Wrong".red
+      exit(1)
     end
 
     File.delete("test_#{@size}.dat")
     File.delete("test_#{@size}.out")
     File.delete("test_#{@size}_exec.out")
-
-    puts ""
   end
 
 end
 
 puts "Compiling main.cc...".blue
-#compiled = system("g++ main.cc -o test -O2")
+compiled = system("g++ main.cc -o test -O2")
 
 unless compiled
   puts "Compilation failed.".red

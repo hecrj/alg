@@ -45,21 +45,18 @@ template<class T> int partition(vector<T> &elements, int start, int end)
     return j;
 }
 
-// Average cost: O(n)
-template<class T> int quickselect(vector<T> &elements, int k, int start, int end)
+// Average cost: O(log n)
+template<class T> int bsearch(const vector<T> &elements, int k, int start, int end)
 {
-    if(start == end)
-        return end;
-
-    int j = partition(elements, start, end);
-
-    if(k == j)
-        return j;
+    if(start + 1 == end)
+        return start;
     
-    if(k < j)
-        return quickselect(elements, k, start, j-1);
-
-    return quickselect(elements, k, j+1, end);
+    int center = (start + end) / 2;
+    
+    if(k < elements[center])
+        return bsearch(elements, k, start, center);
+    
+    return bsearch(elements, k, center, end);
 }
 
 // Cost: elements.size() * log(ranges.size())
@@ -69,46 +66,24 @@ template<class T> int quickselect(vector<T> &elements, int k, int start, int end
 template<class T> void multiselect(vector<T> &elements, const vector<int> &ranges,
         int elementStart, int elementEnd, int rangeStart, int rangeEnd)
 {
-    // We define the range size as it follows
-    int rangesSize = rangeEnd - rangeStart + 1;
-    // We suppose that n = rangeSize
-    
-    // If n is less than 1, we don't need to do anything
-    if(rangesSize < 1)
+    if(rangeStart > rangeEnd || elementStart >= elementEnd)
         return;
     
-    // Base case occurs when n is equal to 1
-    // All we need to do is quick select the range
-    if(rangesSize == 1)
-        quickselect(elements, ranges[rangeStart], elementStart, elementEnd);
+    int k = partition(elements, elementStart, elementEnd);
+    int l = bsearch(ranges, k, rangeStart, rangeEnd + 1);
     
-    else
+    if(ranges[l] == k)
     {
-        // If n is greater than 1, we select the center of the ranges as the pivot
-        int center = rangeStart + rangesSize / 2;
-        int pivot = ranges[center];
-        
-        // Then we quickselect the pivot
-        int j = quickselect<T>(elements, pivot, elementStart, elementEnd);
-        
-        // Now pivot is placed at position j in elements, which is the position that would take in case elements
-        // were sorted and that is the correct position.
-        // Now we can divide, because quickselect uses partition, the elements as follows:
-        //      elements[i] given elementStart <= i < j => elements[i] <= pivot
-        //      elements[i] given j < i <= elementEnd   => elements[i] >= pivot
-        //
-        // Because the ranges are sorted in increasing order, they can be divided as follows:
-        //      ranges[i] given rangeStart <= i < center => ranges[i] < pivot
-        //      ranges[i] given center < i <= rangeEnd   => ranges[i] > pivot
-        //
-        // So, we only need to call multiselect recursively for each of this parts using the range part accordingly.
-        multiselect(elements, ranges, elementStart, j-1, rangeStart, center-1);
-        multiselect(elements, ranges, j+1, elementEnd, center+1, rangeEnd);
-        
-        // We know that the rangesSize of every call is going to be n - 1, because we extract the center.
-        // Therefore (n - 1) < n and the induction hypothesis guarantees that these recursive calls will work
-        // correctly.
+        multiselect(elements, ranges, elementStart, k-1, rangeStart, l-1);
+        multiselect(elements, ranges, k+1, elementEnd, l+1, rangeEnd);
     }
+    else if(ranges[l] < k)
+    {
+        multiselect(elements, ranges, elementStart, k-1, rangeStart, l);
+        multiselect(elements, ranges, k+1, elementEnd, l+1, rangeEnd);
+    }
+    else
+        multiselect(elements, ranges, k+1, elementEnd, l, rangeEnd);
 }
 
 /**
@@ -127,7 +102,7 @@ int main()
     cin >> n >> p;
 
     vector<int> ranges(p);
-    
+
     for(int i = 0; i < p; ++i)
     {
         int aux;
