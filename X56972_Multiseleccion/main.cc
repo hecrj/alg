@@ -64,11 +64,11 @@ template<class T> int partition(vector<T> &elements, int start, int end)
 }
 
 /**
- * Performs a binary search on elements[start..end], that must be sorted.
+ * Performs a binary search on elements[start..end-1], that must be sorted.
  * It returns an index i where start <= i < end:
- *      If elements[start] <= k <= elements[end]  -> elements[i] <= k < elements[i+1]
- *      If k < elements[start] -> i = start
- *      if k > elements[end]   -> i = end
+ *      If elements[start] <= k <= elements[end-1] => elements[i] <= k < elements[i+1]
+ *      If k < elements[start] => i = start
+ *      if k > elements[end-1] => i = end - 1
  * Cost: O(log (end - start))
  * @param elements Elements vector
  * @param k The element to find
