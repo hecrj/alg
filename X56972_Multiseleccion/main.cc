@@ -3,7 +3,15 @@
 
 using namespace std;
 
-// Constant cost: O(1)
+/**
+ * Selects the pivot between start, end and (start + end) / 2.
+ * Puts the pivot at end position.
+ * Cost: Constant
+ * @param elements The elements vector
+ * @param start Start index
+ * @param end End index
+ * @return The selected pivot
+ */
 template<class T> inline T selectPivot(vector<T> &elements, int start, int end)
 {
     int center = (start + end) / 2;
@@ -21,7 +29,17 @@ template<class T> inline T selectPivot(vector<T> &elements, int start, int end)
 }
 
 
-// Lineal cost: O(end - start)
+/**
+ * Selects a pivot p of elements[start..end] and partitionates the elements vector:
+ *      elements[start..j-1] <= p
+ *      elements[j+1..end] >= p
+ * Where j is the position of p after partitionating (the position that p will hold if the vector was sorted).
+ * Cost: O(end - start) = Linear
+ * @param elements Elements vector
+ * @param start Start index
+ * @param end End index
+ * @return Position of the pivot j after partitioning
+ */
 template<class T> int partition(vector<T> &elements, int start, int end)
 {
     T p = selectPivot(elements, start, end);
@@ -45,8 +63,20 @@ template<class T> int partition(vector<T> &elements, int start, int end)
     return j;
 }
 
-// Average cost: O(log n)
-template<class T> int bsearch(const vector<T> &elements, int k, int start, int end)
+/**
+ * Performs a binary search on elements[start..end], that must be sorted.
+ * It returns an index i where start <= i < end:
+ *      If elements[start] <= k <= elements[end]  -> elements[i] <= k < elements[i+1]
+ *      If k < elements[start] -> i = start
+ *      if k > elements[end]   -> i = end
+ * Cost: O(log (end - start))
+ * @param elements Elements vector
+ * @param k The element to find
+ * @param start Start index
+ * @param end End index
+ * @return The index i described above
+ */
+template<class T> int bsearch(const vector<T> &elements, T k, int start, int end)
 {
     if(start + 1 == end)
         return start;
@@ -59,74 +89,149 @@ template<class T> int bsearch(const vector<T> &elements, int k, int start, int e
     return bsearch(elements, k, center, end);
 }
 
-// Cost: elements.size() * log(ranges.size())
-// Proof of correctness is inside the function using induction:
-// Induction hypothesis:
-// multiselect works correctly given rangesSize <= h, where h < n
-template<class T> void multiselect(vector<T> &elements, const vector<int> &ranges,
-        int elementStart, int elementEnd, int rangeStart, int rangeEnd)
+/**
+ * Resolves the multiselection problem.
+ * So after applying this function:
+ *      r = ranges[i] where rangeStart <= i <= rangeEnd => elements[r] is the r-smallest element in the vector
+ * Cost: (elementEnd - elementStart) * log(rankEnd - rankStart)
+ * Proof of correctness:
+ *      We define: n = elementEnd - elementStart
+ *      Induction hypothesis:
+ *      multiselect works correctly if n <= h
+ * @param elements Elements vector
+ * @param ranks Ranges to select
+ * @param elementStart Element start index
+ * @param elementEnd Element end index
+ * @param rankStart Range start index
+ * @param rankEnd Range end index
+ */
+template<class T> void multiselect(vector<T> &elements, const vector<int> &ranks,
+        int elementStart, int elementEnd, int rankStart, int rankEnd)
 {
-    if(rangeStart > rangeEnd || elementStart >= elementEnd)
+    // Base case:
+    // If n = 0 or there are no ranks -> We don't need to do anything
+    if(rankStart > rankEnd || elementStart >= elementEnd)
         return;
     
+    // We need to show: n = h+1 => multiselect works correctly
+    // Thus, we suppose n = h+1
+    // Select a pivot with index k and partitionate the elements vector
     int k = partition(elements, elementStart, elementEnd);
-    int l = bsearch(ranges, k, rangeStart, rangeEnd + 1);
     
-    if(ranges[l] == k)
+    // Now, we know:
+    //   elements[elementStart..k-1] <= elements[k]
+    //   elements[k+1..elementEnd]   >= elements[k]
+    
+    // Find the closest rank index l in the vector
+    int l = bsearch(ranks, k, rankStart, rankEnd + 1);
+    
+    if(ranks[l] == k)
     {
-        multiselect(elements, ranges, elementStart, k-1, rangeStart, l-1);
-        multiselect(elements, ranges, k+1, elementEnd, l+1, rangeEnd);
+        // ranks[l] == k => ranks[l] is correctly positioned
+        // Thus, we only need to take care of ranks[rankStart..l-1] and ranks[l+1..rankEnd]
+        // and we can exclude the pivot of the elements.
+        multiselect(elements, ranks, elementStart, k-1, rankStart, l-1);
+        multiselect(elements, ranks, k+1, elementEnd, l+1, rankEnd);
+        
+        // Because elementStart <= k <= elementEnd and h = elementEnd - elementStart - 1, then:
+        //   (k - 1 - elementStart) <= h < h+1 => first call works!
+        //   (elementEnd - (k+1)) <= h < h+1   => second call works!
     }
-    else if(ranges[l] < k)
+    else if(ranks[l] < k)
     {
-        multiselect(elements, ranges, elementStart, k-1, rangeStart, l);
-        multiselect(elements, ranges, k+1, elementEnd, l+1, rangeEnd);
+        // ranks[l] < k => ranks[rankStart..l] < k and ranks[l+1..rankEnd] > k
+        // This means that:
+        //   r = ranks[rankStart..l] => elementStart <= r <= k-1
+        //   r = ranks[l+1..rankEnd] => k+1 <= r <= elementEnd
+        // Thus, we can divide the problem, excluding k, and solve it recursively!
+        multiselect(elements, ranks, elementStart, k-1, rankStart, l);
+        multiselect(elements, ranks, k+1, elementEnd, l+1, rankEnd);
+        
+        // It was proven before that these two calls work by induction hypothesis. 
     }
     else
-        multiselect(elements, ranges, k+1, elementEnd, l, rangeEnd);
+    {
+        // ranks[l] > k => k < ranks[rankStart..rankEnd] 
+        // This means that:
+        //   r = ranks[rankStart..rankEnd] => elementStart <= k < r <= elementEnd
+        // Thus we exclude elements[elementStart..k] because they are not ranks.
+        multiselect(elements, ranks, k+1, elementEnd, rankStart, rankEnd);
+        
+        // It was proven before that this call works by induction hypothesis. 
+    }
 }
 
 /**
- * Simple shortcut for immersion.
- * @param elements
- * @param ranges
+ * Solves the multiselection problem. Simple shortcut for immersion.
+ * @param elements Elements vector
+ * @param ranks Ranks to select
  */
-template<class T> void multiselect(vector<T> &elements, const vector<int> &ranges)
+template<class T> void multiselect(vector<T> &elements, const vector<int> &ranks)
 {
-    multiselect(elements, ranges, 0, elements.size() - 1, 0, ranges.size() - 1);
+    multiselect(elements, ranks, 0, elements.size() - 1, 0, ranks.size() - 1);
 }
 
-int main()
+/**
+ * Reads a vector from the input stream.
+ * @param v Destination vector
+ */
+template<class T> void read_vector(vector<T>& v)
 {
-    int n, p;
-    cin >> n >> p;
+    for(int i = 0; i < v.size(); ++i)
+        cin >> v[i];
+}
 
-    vector<int> ranges(p);
-
-    for(int i = 0; i < p; ++i)
+/**
+ * Reads a vector of integers and substracts 1 to each element.
+ * @param ranks Ranks destination vector
+ */
+void read_ranks(vector<int>& ranks)
+{
+    for(int i = 0; i < ranks.size(); ++i)
     {
         int aux;
         cin >> aux;
         
-        ranges[i] = aux - 1;
+        ranks[i] = aux - 1;
     }
-    
-    vector<int> elements(n);
-    
-    for(int i = 0; i < n; ++i)
-        cin >> elements[i];
-    
-    multiselect(elements, ranges);
-    
-    for(int i = 0; i < p; ++i)
+}
+
+/**
+ * Prints a vector v using indexes as keys.
+ * @param v Vector elements to print
+ * @param indexes Indexes of v to print
+ */
+template<class T> void print_vector(const vector<T>& v, const vector<T> &indexes)
+{
+    for(int i = 0; i < indexes.size(); ++i)
     {
         if(i != 0)
             cout << ' ';
         
-        cout << elements[ranges[i]];
+        cout << v[indexes[i]];
     }
     
     cout << endl;
+}
+
+/**
+ * Solves the multiselection problem.
+ * @return Execution status
+ */
+int main()
+{
+    int n, p;
+    cin >> n >> p;
+    
+    vector<int> elements(n);
+    vector<int> ranges(p);
+    
+    read_ranks(ranges);
+    read_vector(elements);
+    
+    multiselect(elements, ranges);
+    
+    print_vector(elements, ranges);
     
     return 0;
 }
