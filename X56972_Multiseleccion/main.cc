@@ -98,6 +98,7 @@ template<class T> int bsearch(const vector<T> &elements, T k, int start, int end
  *      We define: n = elementEnd - elementStart
  *      Induction hypothesis:
  *      multiselect works correctly if n <= h
+ * Note: We use x = vector[start..end] to denote every element x = vector[i] where start <= i <= end
  * @param elements Elements vector
  * @param ranks Ranges to select
  * @param elementStart Element start index
@@ -119,8 +120,8 @@ template<class T> void multiselect(vector<T> &elements, const vector<int> &ranks
     int k = partition(elements, elementStart, elementEnd);
     
     // Now, we know:
-    //   elements[elementStart..k-1] <= elements[k]
-    //   elements[k+1..elementEnd]   >= elements[k]
+    //   x = elements[elementStart..k-1] => x <= elements[k]
+    //   x = elements[k+1..elementEnd]   => x >= elements[k]
     
     // Find the closest rank index l in the vector
     int l = bsearch(ranks, k, rankStart, rankEnd + 1);
@@ -128,14 +129,17 @@ template<class T> void multiselect(vector<T> &elements, const vector<int> &ranks
     if(ranks[l] == k)
     {
         // ranks[l] == k => ranks[l] is correctly positioned
-        // Thus, we only need to take care of ranks[rankStart..l-1] and ranks[l+1..rankEnd]
+        // This means that:
+        //   r = ranks[rankStart..l-1] => elementStart <= r < k
+        //   r = ranks[l+1..rankEnd]   => k < r <= elementEnd
+        // Thus, we only need to take care of ranks[rankStart..l-1] and ranks[l+1..rankEnd] accordingly
         // and we can exclude the pivot of the elements.
         multiselect(elements, ranks, elementStart, k-1, rankStart, l-1);
         multiselect(elements, ranks, k+1, elementEnd, l+1, rankEnd);
         
         // Because elementStart <= k <= elementEnd and h = elementEnd - elementStart - 1, then:
         //   (k - 1 - elementStart) <= h < h+1 => first call works!
-        //   (elementEnd - (k+1)) <= h < h+1   => second call works!
+        //   (elementEnd - (k+1))   <= h < h+1 => second call works!
     }
     else if(ranks[l] < k)
     {
@@ -162,7 +166,8 @@ template<class T> void multiselect(vector<T> &elements, const vector<int> &ranks
 }
 
 /**
- * Solves the multiselection problem. Simple shortcut for immersion.
+ * Solves the multiselection problem.
+ * Simple shortcut for immersion.
  * @param elements Elements vector
  * @param ranks Ranks to select
  */
@@ -215,7 +220,11 @@ template<class T> void print_vector(const vector<T>& v, const vector<T> &indexes
 }
 
 /**
- * Solves the multiselection problem.
+ * Solves the multiselection problem:
+ *   1. Reads two integers: n, p where p <= n
+ *   2. Reads a sequence of p sorted integers representing the ranks
+ *   3. Reads a sequence of n integers representing the elements
+ *   4. For every rank r in ranks, outputs the r-smallest element in elements
  * @return Execution status
  */
 int main()
