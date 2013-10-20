@@ -173,6 +173,7 @@ public:
         
         else
         {
+            // Project has no cycle, thus the next call is valid
             calculate_latest_times();
             print();
         }
@@ -225,6 +226,26 @@ private:
     
     /**
      * Calculates the early times of every task in the project.
+     * 
+     * Average cost:
+     * n = tasks.size()
+     * m = number of prerequisite relations between tasks of the project
+     * ci = number of childs of task i
+     * 
+     * Total cost: Initialization + While loop
+     * 
+     * The initialization cost is O(n), because the initialization of
+     * prerequisite_count.
+     * 
+     * In the while loop each task i is visited mostly once, some constant work
+     * is done and for every child of the task i some constant cost operations
+     * are performed.
+     * Then the while loop cost is:
+     * sum{ i=0 -> n }( O(1) + O(ci) ) = O(n) + O(m) = O(n + m)
+     * 
+     * Thus, the total cost is:
+     * O(n) + O(n + m) = O(n + m)
+     * 
      * @return True if success, false if the project contains a cycle
      */
     bool calculate_early_times()
@@ -323,6 +344,11 @@ private:
     /**
      * Calculates the latest times of every task in the project.
      * Pre: The project does not contain a cycle
+     * 
+     * Average cost:
+     * The cost is equal to the calculate_earliest_times() method because they have the same
+     * algorithmic structure.
+     * O(n + m)
      */
     void calculate_latest_times()
     {
@@ -400,6 +426,9 @@ private:
      * TASK_ID EARLY_START_TIME EARLY_END_TIME LATEST_START_TIME LATEST_END_TIME CRITICAL?
      * 
      * Pads every column to 6 characters (fills with spaces), except the last one.
+     * 
+     * Average cost:
+     * O(n), where n = tasks.size()
      */
     void print()
     {
@@ -432,7 +461,7 @@ private:
  * If the project does not contain any cycle the planning table of the project is printed.
  * 
  * Average cost:
- * Read + Plan = O(n + m) + O(n + m) = O(n + m)
+ * read() + plan() = O(n + m) + O(n + m) = O(n + m)
  * Where n is the number of tasks of the project and m is the number of prerequisites relations
  * between tasks of the project.
  * If m >> n then the cost is: O(m)
