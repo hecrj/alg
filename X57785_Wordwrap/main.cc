@@ -50,7 +50,7 @@ class Paragraph
             int min_cost = lineCosts[1][j];
             int min_index = 1;
             
-            for(int i = 2; i < j; ++i)
+            for(int i = 2; i <= j; ++i)
             {
                 int cost = optimalCosts[i-1] + lineCosts[i][j];
                 
