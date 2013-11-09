@@ -246,7 +246,7 @@ public:
                 }
             }
             
-            // Note that we only update the min_cost if the cost of adding the new line is
+            // Note that we only update the min_index if the cost of adding the new line is
             // strictly less than the min_cost. This guarantees that if there is more than one
             // optimum (sub)arrangement the one that has more words in the last line is selected,
             // because default min_index is 0 and variable i is always incremented.
