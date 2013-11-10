@@ -140,8 +140,7 @@ class Paragraph
 public:
     /**
      * Reads a paragraph from the default input stream.
-     * It skips empty lines until some word is read, then an
-     * empty line marks the end of the paragraph.
+     * It reads from the input stream until a blank line is read.
      *
      * Cost: O(n), where n is the number of words read
      */
@@ -151,13 +150,18 @@ public:
         
         while(getline(cin, s))
         {
-            if(s.empty() and not empty())
-                break;
-            
             istringstream line(s);
+            
+            bool empty = true;
 
             while(line >> s)
+            {
                 words.push_back(s);
+                empty = false;
+            }
+            
+            if(empty)
+                break;
         }
         
         // Paragraph consists in only one line by default
@@ -298,8 +302,6 @@ int main()
         Paragraph p;
         p.read();
         
-        // An empty paragraph means the input has been closed before
-        // reading any word
         if(not p.empty())
         {
             // Wordwrap paragraph and get penalty
