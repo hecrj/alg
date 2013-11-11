@@ -32,79 +32,63 @@ class Paragraph
     
     /**
      * Given 0 <= i < n:
-     * Given i < j < n:
-     * lineCosts[i][j] = cost of having words[i..j] on the same line
+     * lineWidths[i] = width ot line that contains words[0..i]
      */
-    vector< vector<int> > lineCosts;
+    vector<int> lineWidths;
     
     /**
-     * Calculates the line costs given the target line width.
+     * Calculates the line widths given the target line width.
      * 
      * Cost:
-     * Cost(compute line widths) + Cost(compute line costs) = O(n^2) + O(n^2) = O(n^2)
+     * Cost of the main loop = O(n)
      * More details below.
      * 
      * @param width Target line width
      */
-    void computeLineCosts(int width)
+    void computeLineWidths()
     {
-        // Initialize lineCosts structure
-        lineCosts = vector< vector<int> >(words.size(), vector<int>(words.size()));
+        // Initialize lineWidths structure
+        lineWidths = vector<int>(words.size());
         
-        // To save some time and memory, we reuse the lineCosts structure to calculate
-        // the line widths first, and then we calculate the line costs in the same
-        // structure.
+        // Base case
+        // Line width of the line that only contains words[0] equals to words[0] width
+        lineWidths[0] = words[0].size();
         
         // Line widths
         // Given 0 <= i < n:
-        // Calculate the width for each line that starts with words[i]
-        for(int i = 0; i < words.size(); ++i)
+        // Calculate the width for each line that ends with words[i]
+        for(int i = 1; i < words.size(); ++i)
         {
-            // Base case
-            // Line width of the line that only contains words[i] equals to words[i] width
-            lineCosts[i][i] = words[i].size();
-            
-            // Given i < j < n
-            // The width of the line that starts with words[i] and ends with words[j] can be
+            // The width of the line that starts with words[0] and ends with words[i] can be
             // defined recursively as the sum of:
-            // 1. The width of the line that starts with words[i] and ends with words[j-1]
-            // 2. Width of words[j]
+            // 1. The width of the line that starts with words[0] and ends with words[i-1]
+            // 2. Width of words[i]
             // 3. 1 (because the additional space separator)
-            for(int j = i+1; j < words.size(); ++j)
-            {
-                lineCosts[i][j] = lineCosts[i][j-1] + words[j].size() + 1;
-                
-                // We are doing constant work O(1) for every j. Thus, the cost of this loop is:
-                // (n - (i+1)) * O(1) = O(n)
-            }
+            lineWidths[i] = lineWidths[i-1] + words[i].size() + 1;
             
-            // Cost of this loop:
-            // n * O(n) = O(n^2)
+            // We are doing constant work O(1) for every word i. Thus, the cost of this loop is:
+            // (n-1) * O(1) = O(n)
         }
+    }
+    
+    /**
+     * Calculates the cost of having words[i..j] on the same line.
+     * @param i Word that starts the line
+     * @param j Word that ends the line
+     * @param width Target line width
+     * @return Cost of having words[i..j] on the same line
+     */
+    int cost(int i, int j, int width)
+    {
+        // Square root of the cost of having words[0..j] on the same line
+        int cost_2 = lineWidths[j] - width;
         
-        // Line costs
-        // Given 0 <= i < words.size():
-        // Calculate the cost for each line that starts with words[i]
-        for(int i = 0; i < lineCosts.size(); ++i)
-        {
-            // Given i < j < words.size()
-            for(int j = i; j < lineCosts.size(); ++j)
-            {
-                // The cost of the line that starts with words[i] and ends with words[j] is:
-                // (width of the line - target line width) ^ 2 
-                
-                // lineCosts[i][j] contains the cost of the line (previously calculated)
-                
-                // We calculate here the square root of the cost
-                int cost_2 = lineCosts[i][j] - width;
-                
-                // Finally, the cost is calculated from the square root
-                lineCosts[i][j] = cost_2 * cost_2;
-            }
-            
-            // This loop has the same structure as the loop above, thus the cost is:
-            // O(n^2)
-        }
+        // If i > 0, then we remove the width of the line words[0..i] and the additional space
+        if(i > 0)
+            cost_2 = cost_2 - lineWidths[i-1] - 1;
+        
+        // Return the cost
+        return cost_2 * cost_2;
     }
     
     /**
@@ -209,8 +193,8 @@ public:
      */
     int wordwrap(int width)
     {
-        // First, compute the line costs
-        computeLineCosts(width);
+        // First, compute the line widths
+        computeLineWidths();
         
         // Initialize optimal costs
         optimalCosts = vector<int>(words.size());
@@ -220,7 +204,7 @@ public:
         for(int j = 0; j < words.size(); ++j)
         {
             // Set default minimum cost and index
-            int min_cost = lineCosts[0][j];
+            int min_cost = cost(0, j, width);
             int min_index = 0;
             
             // First iteration can be skipped because the default
@@ -240,12 +224,12 @@ public:
             {
                 // Cost of adding the line with words[i..j] to the optimum arrangement
                 // of words[0..i-1]
-                int cost = optimalCosts[i-1] + lineCosts[i][j];
+                int new_cost = optimalCosts[i-1] + cost(i, j, width);
                 
                 // If necessary, update minimum cost and index to fulfill invariant
-                if(cost < min_cost)
+                if(new_cost < min_cost)
                 {
-                    min_cost = cost;
+                    min_cost = new_cost;
                     min_index = i;
                 }
             }

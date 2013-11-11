@@ -1,0 +1,790 @@
+<!DOCTYPE html PUBLIC
+'-//W3C//DTD XHTML
+1.0 Strict//EN'
+'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'>
+<html
+xmlns='http://www.w3.org/1999/xhtml'
+lang='en' xml:lang='en'>
+Penalty: 1551
+
+<head> <title>Jutge
+:: Problem X57785_es:
+Wordwrap</title>
+<link rel='stylesheet'
+href='/normal.css'
+type='text/css'
+media='screen' />
+Penalty: 60
+
+<meta http-equiv='Content-Type'
+content='text/html;
+charset=UTF-8'/>
+Penalty: 138
+
+<script
+src='/js/sorttable/sorttable.js'
+type='text/javascript'></script>
+Penalty: 457
+
+<script
+src='/js/scriptaculous/prototype.js'
+type='text/javascript'></script>
+<script
+src='/js/scriptaculous/scriptaculous.js'
+type='text/javascript'></script>
+Penalty: 1282
+
+<script type="text/javascript"
+charset="UTF-8"> /*
+<![CDATA[ */ try { if
+(undefined == xajax.config)
+xajax.config = {}; }
+catch (e) { xajax = {};
+xajax.config = {}; };
+xajax.config.requestURI =
+"https://www.jutge.org/problems/X57785_es/statement";
+xajax.config.statusMessages =
+false; xajax.config.waitCursor
+= true; xajax.config.version
+= "xajax 0.5";
+xajax.config.defaultMode
+= "asynchronous";
+xajax.config.defaultMethod
+= "POST";
+xajax.config.JavaScriptURI
+= "/js/xajax/"; /* ]]>
+*/ </script> <script
+type="text/javascript"
+src="/js/xajax/xajax_js/xajax_core.js"
+charset="UTF-8"></script>
+<script type="text/javascript"
+charset="UTF-8">
+/* <![CDATA[ */
+window.setTimeout(
+function() { var
+scriptExists = false;
+try { if (xajax.isLoaded)
+scriptExists = true;
+} catch (e) {} if
+(!scriptExists) {
+alert("Error: the xajax
+Javascript component
+could not be included.
+Perhaps the URL is
+incorrect?\nURL:
+/js/xajax/xajax_js/xajax_core.js");
+} }, 2000); /*
+]]> */ </script>
+Penalty: 2646
+
+<script type='text/javascript'
+charset='UTF-8'>
+/* <![CDATA[ */
+xajax_unmarkfav_ajax
+= function() { return
+xajax.request( { xjxfun:
+'unmarkfav_ajax' }, {
+parameters: arguments }
+); }; xajax_markfav_ajax
+= function() { return
+xajax.request( {
+xjxfun: 'markfav_ajax'
+}, { parameters:
+arguments } ); };
+/* ]]> */ </script>
+Penalty: 231
+
+<script type='text/javascript'>
+Penalty: 121
+
+var newwindow;
+function popupwindow
+(url) { newwindow
+= window.open(url,
+'name', 'height=400,
+width=300, scrollbars=yes,
+location=no'); if
+(window.focus) {
+newwindow.focus(); } }
+Penalty: 114
+
+</script> </head> <body>
+Penalty: 16
+
+<div class='top'>
+<table width='100%'
+border='0' cellpadding='0'
+cellspacing='0'> <tr>
+<td class='left'> <div
+class='judgeit1'> <a
+href='/' title='Go to the
+homepage.'>Jutge.org</a>
+</div> <div class='judgeit2
+trans'> The Virtual
+Learning Environment
+for Computer Programming
+</div> </td> <td
+class='right'>
+Penalty: 210
+
+<div class='judgeit2'>
+<b>H&eacute;ctor
+Ram&oacute;n
+Jim&eacute;nez</b>
+hector.ramon@est.fib.upc.edu </div>
+Penalty: 313
+
+<div class='judgeit2'>
+&nbsp; </div>
+Penalty: 53
+
+</td> </tr> </table> </div>
+Penalty: 49
+
+<div class='side'>
+Penalty: 4
+
+<div class='box_title
+trans'>Navigation</div>
+<div class='box_body'>
+Penalty: 14
+
+<div class='box_option
+trans'><a class=''
+href='/profile'>Profile</a></div>
+Penalty: 177
+
+<div class='box_option
+trans'><a class=''
+href='/documentation'>Documentation</a></div>
+Penalty: 633
+
+<div class='box_line'> <hr
+noshade style='border:0;
+border-top: 1px
+solid #d9d9d9;
+height: 0px;'> </div>
+Penalty: 114
+
+<div class='box_option
+trans'><a class=''
+href='/courses'>Courses</a></div>
+Penalty: 177
+
+<div class='box_option
+trans'><a class=''
+href='/lists'>Lists</a></div>
+Penalty: 89
+
+<div class='box_option
+trans'><a class='active'
+href='/problems'>Problems</a></div>
+Penalty: 245
+
+<div class='box_option
+trans'><a class=''
+href='/submissions'>Submissions</a></div>
+Penalty: 449
+
+<div class='box_option
+trans'><a class=''
+href='/documents'>Documents</a></div>
+Penalty: 297
+
+<div class='box_option
+trans'><a class=''
+href='/exams'>Exams</a></div>
+Penalty: 89
+
+<div class='box_option
+trans'><a class=''
+href='/favorites'>Favorites</a></div>
+Penalty: 297
+
+</div>
+Penalty: 196
+
+<div class='box_title
+trans'> Log out </div>
+<div class='box_body'>
+<form action='/homepage'
+method='post'>
+<input type='hidden'
+name='is_logout'
+value='true'/> <div
+class='center trans'
+style='padding-top:
+8px;'> <input value='Log
+out' type='submit'
+class='roundbutton'/><br/>
+</div> </form> </div>
+Penalty: 136
+
+</div>
+Penalty: 196
+
+<div class='main'> <div
+class='main_title'>
+<table width='100%'
+border='0' cellpadding='0'
+cellspacing='0'> <tr>
+<td class='left'>
+<b>Problem X57785_es:
+Wordwrap</b> </td>
+<td class='right'>
+Penalty: 66
+
+<img id='starmarked'
+style='display: none;'
+src='/ico/star-marked.png'
+alt='marked star'
+title='Marked as favorite.
+Click to remove from
+favorites' onclick='
+xajax_unmarkfav_ajax("/problems/X57785_es/statement");
+document.getElementById("starmarked").style.display
+= "none";
+document.getElementById("starunmarked").style.display
+= "inline"; ' /> <img
+id='starunmarked'
+style='display: inline;'
+src='/ico/star-unmarked.png'
+alt='unmarked star'
+title='Click to add to
+favorites' onclick='
+xajax_markfav_ajax("/problems/X57785_es/statement",
+"Problem X57785_es:
+Wordwrap (Statement)",
+"Problems");
+document.getElementById("starunmarked").style.display
+= "none";
+document.getElementById("starmarked").style.display
+= "inline"; ' />
+<img id='nostar'
+style='display: none;'
+src='/ico/white-bullet.png'
+alt='no star' title='This
+page cannot be added
+to favorites' /> &nbsp;
+<select id='favlist'
+class='favlist'
+title='Some pages can
+be added to a list of
+favorites.' onchange=' if
+(this.options[this.selectedIndex].value
+!= "") {
+window.open(this.options[this.selectedIndex].value,"_top");
+} ' > <option
+style='color: gray;'
+value='/favorites'>Favorites</option>
+</select>
+Penalty: 9364
+
+</td> </tr> </table> </div>
+Penalty: 49
+
+<div class='tabs'>
+<div class='tab
+trans'><a class='active'
+href='/problems/X57785_es/statement'>Statement</a></div>
+<div class='tab
+trans'><a class=''
+href='/problems/X57785_es/submit'>Submit</a></div>
+<div class='tab
+trans'><a class=''
+href='/problems/X57785_es/submissions'>Submissions</a></div>
+<div class='tab
+trans'><a class=''
+href='/problems/X57785_es/annotation'>Annotation</a></div>
+<div class='tab
+trans'><a class=''
+href='/problems/X57785_es/forum/topics'>Forum</a></div>
+&nbsp; </div>
+Penalty: 6675
+
+<div class='main_body'>
+Penalty: 9
+
+<div id='msgbar'
+class='msgbar'
+style='display: none;'>
+<a href='#' onclick='
+$("msgbar").fade();
+' &nbsp; ><img
+src='/ico/icon-close.png'></a>
+<span id='msg'></span> </div>
+Penalty: 280
+
+<script> function
+show_el(id) {
+document.getElementById(id).style.display
+= 'block'; } function
+hide_el(id) {
+document.getElementById(id).style.display
+= 'none'; } function
+resizeIframe(newHeight) { var
+h = parseInt(newHeight,10)
++ 10 + 'px';
+document.getElementById('myiframe').style.height
+= h; } </script>
+Penalty: 1971
+
+<h1>Problem files</h1>
+<div class='indent'> <a
+href='/problems/X57785_es/pdf'
+><img src='/ico/pdf.png'
+alt='pdf' title='Get
+problem statement as
+PDF' /></a> &nbsp; <a
+href='/problems/X57785_es/ps'
+><img src='/ico/ps.png'
+alt='ps' title='Get
+problem statement as
+PS' /></a> &nbsp; <a
+href='/problems/X57785_es/tgz'
+><img src='/ico/tgz.png'
+alt='tgz' title='Get
+problem files as
+TAR.GZ' /></a> &nbsp; <a
+href='/problems/X57785_es/zip'
+><img src='/ico/zip.png'
+alt='zip' title='Get
+problem files as ZIP' /></a>
+Penalty: 549
+
+</div> <br/>
+Penalty: 64
+
+<h1>Statement</h1> <div
+id='pdf' class='indent'
+style='display: none;'>
+<input type='button'
+onClick='hide_el("pdf");
+show_el("but");'
+value='Hide PDF'>
+Penalty: 68
+
+<a href='javascript:popupwindow("/problems/pdf-plugin")'
+><img src='/ico/help.png'></a>
+Penalty: 1396
+
+<div style='border-color:
+black; border-style:
+solid; border-width:
+1px;'> <embed
+src='/problems/X57785_es/pdf#toolbar=1&navpanes=0&scrollbar=1&view=FitH'
+width='100%' height='550'>
+</div> </div> <div
+id='htm' class='indent'
+style='display: none;'>
+<input type='button'
+onClick='hide_el("htm");
+show_el("but");'
+value='Hide HTML'> <!--
+<p><iframe bgcolor='red'
+id='myiframe'
+src='/problems/X57785_es/html'
+width='100%' height='200px'
+style='overflow-y: hidden; '
+scrolling='no'></iframe></p>
+--> <!DOCTYPE HTML
+PUBLIC "-//W3C//DTD HTML
+4.0 Transitional//EN"
+"http://www.w3.org/TR/REC-html40/loose.dtd">
+Penalty: 3816
+
+<TITLE>html</TITLE>
+Penalty: 1
+
+<META http-equiv="Content-Type"
+content="text/html;
+charset=UTF-8"> <META
+name="GENERATOR"
+content="hevea 1.10">
+<STYLE type="text/css">
+.li-itemize{margin:1ex 0ex;}
+.li-enumerate{margin:1ex 0ex;}
+.dd-description{margin:0ex
+0ex 1ex 4ex;}
+.dt-description{margin:0ex;}
+.toc{list-style:none;}
+.thefootnotes{text-align:left;margin:0ex;}
+.dt-thefootnotes{margin:0em;}
+.dd-thefootnotes{margin:0em
+0em 0em 2em;}
+.footnoterule{margin:1em
+auto 1em 0px;width:50%;}
+.caption{padding-left:2ex;
+padding-right:2ex;
+margin-left:auto;
+margin-right:auto}
+.title{margin:2ex
+auto;text-align:center}
+.center{text-align:center;margin-left:auto;margin-right:auto;}
+.flushleft{text-align:left;margin-left:0ex;margin-right:auto;}
+.flushright{text-align:right;margin-left:auto;margin-right:0ex;}
+DIV TABLE{margin-left:inherit;margin-right:inherit;}
+PRE{text-align:left;margin-left:0ex;margin-right:auto;}
+BLOCKQUOTE{margin-left:4ex;margin-right:4ex;text-align:left;}
+TD P{margin:0px;}
+.boxed{border:1px solid
+black} .textboxed{border:1px
+solid black}
+.vbar{border:none;width:2px;background-color:black;}
+.hbar{border:none;height:2px;width:100%;background-color:black;}
+.hfill{border:none;height:1px;width:200%;background-color:black;}
+.vdisplay{border-collapse:separate;border-spacing:2px;width:auto;
+empty-cells:show;
+border:2px solid red;}
+.vdcell{white-space:nowrap;padding:0px;width:auto;
+border:2px solid green;}
+.display{border-collapse:separate;border-spacing:2px;width:auto;
+border:none;}
+.dcell{white-space:nowrap;padding:0px;width:auto;
+border:none;}
+.dcenter{margin:0ex auto;}
+.vdcenter{border:solid
+#FF8000 2px;
+margin:0ex auto;}
+.minipage{text-align:left;
+margin-left:0em;
+margin-right:auto;}
+.marginpar{border:solid
+thin black; width:20%;
+text-align:left;}
+.marginparleft{float:left;
+margin-left:0ex;
+margin-right:1ex;}
+.marginparright{float:right;
+margin-left:1ex;
+margin-right:0ex;}
+.theorem{text-align:left;margin:1ex
+auto 1ex 0ex;}
+.part{margin:2ex
+auto;text-align:center}
+.lstlisting{font-family:monospace;white-space:pre;margin-right:auto;margin-left:0pt;text-align:left}
+</STYLE>
+Penalty: 28744
+
+<BODY > <!--HEVEA
+command line is:
+/usr/bin/hevea html.tex
+--> <!--CUT DEF section
+1 --><P>El objetivo
+de la práctica es
+escribir un programa
+que formatea párrafos
+de manera óptima. Dado
+un valor <I>W</I>≥
+0 que es la anchura
+de la línea, y un
+párrafo <I>P</I>
+queremos determinar los
+lugares óptimos donde
+colocar los saltos de
+línea, de manera que
+todas tengan líneas
+de longitud lo más
+parecido posible a
+<I>W</I>. Consideramos
+que un párrafo <I>P</I>
+está formado por una
+secuencia de palabras
+separadas entre sí
+por un espacio en
+blanco. En la entrada
+podemos tener espacios
+en blanco antes de la
+primera palabra de un
+párrafo, después de
+la última palabra o
+espacios múltiples
+entre las palabras,
+por lo que un paso
+previo consistirá
+en eliminar todos los
+espacios en blanco
+innecesarios.</P><P>El
+proceso de optmización
+por lo tanto consiste
+en determinar qué
+espacios en blanco
+del párrafo <I>P</I>
+deben ser sustituídos
+por saltos de línea.
+Para una línea de
+longitud ℓ (sin contar
+el salto de línea
+del final), se define
+el<EM>penalty</EM>
+como el cuadrado de la
+diferencia entre ℓ
+y <I>W</I>: </P><TABLE
+CLASS="display dcenter"><TR
+VALIGN="middle"><TD
+CLASS="dcell">penalty = (ℓ
+− <I>W</I>)<SUP>2</SUP>.
+</TD></TR> </TABLE><P>
+El penalty de un
+párrafo <I>P</I>
+formateado en líneas
+<I>L</I><SUB>1</SUB>,
+<I>L</I><SUB>2</SUB>, …,
+<I>L</I><SUB><I>k</I></SUB>
+es la suma de los
+penalties de las
+líneas. El objetivo
+será entonces dividir
+el párrafo <I>P</I>
+dado de tal modo
+que se minimice el
+penalty.</P><P>Las
+soluciones voraces no
+funcionan correctamente;
+hay que utilizar
+programación dinámica
+para resolver este
+problema.</P><P>
+<B>Entrada</B> La
+entrada comienza con
+el valor <I>W</I>. A
+continuación viene
+una secuencia de
+párrafos (con espacios
+redundantes que deben
+ser eliminados); cada
+párrado viene separado
+del siguente por una o
+más líneas en blanco.
+Por ejemplo, </P><PRE
+CLASS="verbatim">20
+este____es_el_primer_parrafo,_que_consiste_en_
+varias
+palabras,_teniendo_en_cuenta_que_los_signos
+de_puntuacion_como_la_coma
+se_consideran_parte_de_la_palabra.
+Penalty: 2290
+
+por_ejemplo,_en_ el_
+parrafo_anterior,_el
+punto_final_es_parte_
+de_la palabra_"palabra."
+Penalty: 17
+
+____este_tercer_parrafo_____esta_separado___
+__del_anterior_por_varias_lineas_en_blanco
+y_hay_espacios_redundantes_antes_de_la_primera_palabra,
+separando_palabras_y_tambien_al_final____
+</PRE><P>En el ejemplo
+los espacios en blanco
+se han marcado para
+hacerlos más fácilmente
+visibles.</P><P>
+<B>Salida</B> La
+secuencia de párrafos
+formateados óptimamente,
+a continuación
+una línea que pone
+<TT>Penalty: </TT> y
+el valor del penalty
+correspondiente al
+párrafo. Cada párrafo
+viene separado del
+siguiente por una
+línea en blanco.</P><P>
+<B>Observación</B>
+Vuestro programa deberá
+estar escrito en C++.
+Para la evaluación de
+la práctica se usarán
+juegos de pruebas
+públicos y privados,
+pero el <EM>Jutge</EM>
+sólo tendrá en
+cuenta los juegos
+de pruebas públicos
+para determinar si el
+programa pasa o no, y
+los resultados de los
+juegos de pruebas privados
+sólo se usarán para
+perfilar la nota de
+la práctica.</P><P>En
+el fichero entregado,
+el algoritmo deberá
+estar debidamente
+comentado. En particular
+debéis justificar
+su corrección y su
+eficiencia para formatear
+un solo párrafo en
+función del número
+<I>n</I> de palabras
+que constituyen el
+párrafo. </P><P>La
+fecha y hora límite de
+entrega se publicará
+en un aviso del
+Racó. </P><!--CUT END
+--> <!--HTMLFOOT-->
+<!--ENDHTML--> <!--FOOTER-->
+Penalty: 3170
+
+<input type='button'
+onClick='hide_el("htm");
+show_el("but");'
+value='Hide HTML'>
+</div> <div id='png'
+class='indent'
+style='display: none;'>
+&nbsp; <input type='button'
+onClick='hide_el("png");
+show_el("but");'
+value='Hide Image'> <p><img
+src='/problems/X57785_es/png'
+width='100%'></p> &nbsp;
+<input type='button'
+onClick='hide_el("png");
+show_el("but");'
+value='Hide Image'>
+</div> <div id='but'
+class='indent'
+style='display: block;'>
+<input type='button'
+onClick='show_el("png");
+hide_el("but");'
+value='Show Image'>
+<input type='button'
+onClick='show_el("htm");
+hide_el("but");'
+value='Show HTML'>
+<input type='button'
+onClick='show_el("pdf");
+hide_el("but");'
+value='Show PDF'>
+Penalty: 503
+
+<a href='javascript:popupwindow("/problems/pdf-plugin")'
+><img src='/ico/help.png'></a>
+Penalty: 1396
+
+</div> <br/>
+Penalty: 64
+
+<h1>Public data set:
+sample-1</h1><div
+class='indent'>&nbsp;Input</br>
+<table> <tr> <td
+style='vertical-align:top'>
+<pre class='mypre'
+style='width: 700px;
+height: 15em; overflow:
+auto; ' >20 el primer
+parrafo consiste en
+una serie de lineas
+bastante irregulares
+Penalty: 211
+
+el segundo parrafo
+tampoco es moco de
+pavo, hay bastante texto
+que esta formateado
+de manera irregular
+Penalty: 26
+
+pero lo mejor de todo
+es el tercer parrafo
+Penalty: 1
+
+</pre> </td>
+Penalty: 64
+
+</tr> </table> </div><div
+class='indent'>&nbsp;Output<br/>
+<table> <tr> <td
+style='vertical-align:top'>
+<pre class='mypre'
+style='width: 700px;
+height: 15em; overflow:
+auto; ' >el primer
+parrafo consiste en una
+serie de lineas bastante
+irregulares Penalty: 40
+Penalty: 285
+
+el segundo parrafo tampoco
+es moco de pavo, hay
+bastante texto que esta
+formateado de manera
+irregular Penalty: 26
+Penalty: 46
+
+pero lo mejor de todo
+es el tercer parrafo
+Penalty: 1 </pre> </td>
+Penalty: 10
+
+</tr> </table>
+</div><h1>Public data
+set: sample-2</h1><div
+class='indent'>&nbsp;Input</br>
+<table> <tr> <td
+style='vertical-align:top'>
+<pre class='mypre'
+style='width: 700px;
+height: 4em; overflow:
+auto; ' >6 aaa bb
+cc ddddd</pre> </td>
+Penalty: 244
+
+</tr> </table> </div><div
+class='indent'>&nbsp;Output<br/>
+<table> <tr> <td
+style='vertical-align:top'>
+<pre class='mypre'
+style='width: 700px;
+height: 5em; overflow:
+auto; ' >aaa bb cc ddddd
+Penalty: 4 </pre> </td>
+Penalty: 267
+
+</tr> </table> </div>
+Penalty: 1
+
+<h1>Information</h1>
+Penalty: 0
+
+<table class='indent'>
+<tr class='rowhover'><th
+class='rsep'>Author:</th><td>Conrado
+Martinez</td></tr> <tr
+class='rowhover'><th
+class='rsep'>Language:</th><td>Spanish</td></tr>
+Penalty: 1064
+
+<tr class='rowhover'><th
+class='rsep'>Copyright:</th><td>&copy;
+Jutge.org, 2006-2013</td></tr>
+Penalty: 440
+
+</table>
+Penalty: 144
+
+<br/>
+Penalty: 225
+
+<p></p> </div> </div>
+Penalty: 1
+
+<div class='bottom'>
+Penalty: 0
+
+&copy; Jordi Petit and
+Salvador Roura, 2006-2013
+<!-- 147.83.29.168
+www.jutge.org -->
+</div> <p>&nbsp;</p>
+Penalty: 42
+
+</body> </html>
+Penalty: 25
